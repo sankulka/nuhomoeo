@@ -1,0 +1,346 @@
+<!--
+/////
+THIS IS MODAL FORM FOR PATIENT CREATE/UPDATE
+/////
+-->
+
+<div ng-include="'./partials/patient-update.html'" />
+
+<!--
+/////
+THIS IS MODAL FORM FOR NOTES
+/////
+-->
+<script type="text/ng-template" id="notes.html">		
+	<div class="panel-heading">
+		<h3 class="panel-title" id="modal-title">Add Note</h3>
+	</div>
+	<div class="panel-body" id="modal-body">
+		<form id="notesForm" role="form" class="form-horizontal">
+			<div class="col-md-10">
+				<textarea class="form-control" ng-model="notes" rows="5"></textarea>
+			</div>
+			<div class="btn-group pull-right">
+				<button class="btn btn-default" ng-click="cancel()">Cancel</button>
+				<button class="btn btn-default pull-right" ng-click="ok()">Save</button>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!--
+/////
+THIS IS MODAL FORM FOR FOLLOWUPS
+/////
+-->
+<script type="text/ng-template" id="followup.html">
+<dropdown placeholder="Colour..." list="colours" selected="colour" property="name">
+<div class="dropdown-container" ng-class="{ show: listVisible }">
+	<div class="dropdown-display" ng-click="show();" ng-class="{ clicked: listVisible }">
+		<span ng-if="!isPlaceholder">{{display}}</span>
+		<span class="placeholder" ng-if="isPlaceholder">{{placeholder}}lt;/span>
+		<i class="fa fa-angle-down"></i>
+	</div>
+	<div class="dropdown-list">
+		<div>
+			<div ng-repeat="item in list" ng-click="select(item)" ng-class="{ selected: isSelected(item) }">
+				<span>{{property !== undefined ? item[property] : item}}</span>
+				<i class="fa fa-check"></i>
+			</div>
+		</div>
+	</div>
+</div>
+</dropdown>
+
+
+	
+	<div class="panel-heading">
+		<h3 class="panel-title" id="modal-title">Followup</h3>
+	</div>
+	<div class="panel-body" id="modal-body">
+		<form id="jvalidate" role="form" class="form-horizontal">
+
+			<div class="panel panel-default tabs">                            
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Symptoms</a></li>
+					<li><a href="#tab-second" role="tab" data-toggle="tab">Treatment</a></li>
+				</ul>
+				<div class="panel-body tab-content">
+					<div class="tab-pane active" id="tab-first">		
+						<ul class="panel-controls pull-left">
+							<li class="xn-icon-button">
+								<a href="#" ng-click="$ctrl.addSymptom()">
+									<span class="fa fa-plus"></span>
+								</a>
+							</li>
+						</ul>
+						</ul>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Complaint</th>
+									<th>Symptom Change</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="symptom in $ctrl.symptoms">
+									<td>
+										<input type="text" ng-model="symptom.complaint" class="form-control" name="name"/>
+									</td>
+									<td>
+							<select id="selectedchange" class="form-control" ng-model="symptom.change" ng-options="change.name for change in $ctrl.changes">
+							</select>
+									
+									
+									
+										<!--select ng-model="symptom.change" class="form-control select">
+											<option ng-repeat="change in $ctrl.changes" data-image="assets/images/logo.png">{{change.name}}
+											</option>
+										</select-->
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="tab-pane" id="tab-second">		
+						<ul class="panel-controls pull-left">
+							<li class="xn-icon-button">
+								<a href="#" ng-click="$ctrl.addTreatment()">
+									<span class="fa fa-plus"></span>
+								</a>
+							</li>
+						</ul>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Medicine</th>
+									<th>Potency</th>
+									<th>Dose</th>
+									<th>Frequency</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="treatment in $ctrl.treatments">
+									<td>
+										<select ng-model="treatment.medicine" class="form-control select">
+											<option>Arnica</option>
+											<option>Belladona</option>
+										</select>
+									</td>
+									<td>
+										<select ng-model="treatment.potency" class="form-control select">
+											<option>6X</option>
+											<option>30X</option>
+										</select>
+									</td>
+									<td>
+										<select ng-model="treatment.dose" class="form-control select">
+											<option>3 pills</option>
+											<option>4 pills</option>
+										</select>
+									</td>									
+									<td>
+										<select ng-model="treatment.frequency" class="form-control select">
+											<option>Twice a day</option>
+											<option>Thrice a day</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>						
+					</div>
+				</div>		
+			</div>
+			<div class="btn-group pull-right">
+				<button class="btn btn-default pull-right" ng-click="$ctrl.ok()">Save</button>
+				<button class="btn btn-default" ng-click="$ctrl.cancel()">Cancel</button>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!--
+
+THIS IS PATIENT DASHBOARD CONTROLLER FORM
+
+-->
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Patient</h3>
+                <ul class="panel-controls">
+					<li class="xn-icon-button">
+						<a href="#" ng-click="updatePatient()" ng-if="vm.currentPatient > 0">
+							<span class="fa fa-pencil"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="panel-body list-group border-bottom" ng-if="vm.currentPatient > 0">
+				<a class="list-group-item">{{vm.salutation}} {{vm.name}}</a>
+				<div class="row list-group-item">
+					<div class="col-md-3">{{vm.gender}}</div>
+					<div class="pull-right">{{vm.dob}}</div>
+				</div>
+				<div class="row list-group-item">
+					<div class="col-md-3">{{vm.phone}}</div>
+					<div class="pull-right">{{vm.email}}</div>
+				</div>
+				<a class="list-group-item">Ref: {{vm.reference}}</a>  
+				<a class="list-group-item">{{vm.primaryCom}}, {{vm.secondaryCom}}</a>  
+				<a class="list-group-item">{{vm.address}}</a>
+			</div>
+		</div>
+		
+		<div class="panel panel-default animated zoomIn xn-drop-left xn-panel-dragging">
+            <div class="panel-heading">
+                <h3 class="panel-title">Gallary</h3>
+                <ul class="panel-controls" ng-if="vm.currentPatient > 0">
+				<div>
+					<a class='btn btn-default' href='javascript:;'>
+						<span class="fa fa-plus">
+							<input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);opacity:0;background-color:transparent;color:transparent;' onchange='$("#upload-file-info").html($(this).val());' nv-file-select="" uploader="uploader">
+						</span>
+					</a>
+				</div>
+				</ul>
+			</div>
+            <div class="panel-body" style="height:600px;">
+				<div class="gallery" id="links">
+					<iframe src="{{vm.filesFolder | trustAsResourceUrl}}" style="width:100%; height:600px; border:0;"></iframe>
+				</div>
+			</div>
+
+            <!--div class="panel-body">
+				<div class="gallery" id="links">
+					<div ng-repeat="activity in vm.activities">
+						<a class="gallery-item" href="{{activity[4]}}" target="_blank" data-gallery ng-if="activity[1] == 'image/jpeg' || activity[1] == 'image/gif' || activity[1] == 'image/png' || activity[1] == 'application/pdf' || activity[1] == 'application/octet-stream' || activity[1] == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+							<div class="image">
+								<!--img src="{{activity[4]}}" type="{{activity[1]}}"/-->
+								<!--img src="{{activity[5]}}" type="{{activity[1]}}"/-->
+								<!--img src="{{activity[4]}}" type="{{activity[1]}}" data-target="thumbnail"/-->
+								<!--img src="https://drive.google.com/thumbnail?authuser='me'&sz=w320&id=0BxI-08mYaSCvTUZqd1hRT0Z3eG8" type="{{activity[1]}}>
+								<!--object data="" type="image/jpg"></object-->
+								<!--ul class="gallery-item-controls">
+									<li><span class="gallery-item-remove"><i class="fa fa-times"></i></span></li>
+								</ul-->
+							<!--/div>
+						</a>
+					</div>
+				</div>
+			</div-->
+		</div>
+	</div>
+						
+	<div class="col-md-8">
+	<!-- START Table for Activities -->
+		<div class="panel panel-default">
+			<div class="panel-heading">                                
+				<h3 class="panel-title">Activities</h3>
+                <ul class="panel-controls">
+					<li><a href="#" ng-click="startCaseHistory()" ng-if="vm.currentPatient > 0"><span class="fa fa-file-text-o"></span></a></li>
+					<li><a href="#" ng-click="addFollowup()" ng-if="vm.currentPatient > 0"><span class="fa fa-stethoscope"></span></a></li>
+					<li><a href="#" ng-click="addNotes()" ng-if="vm.currentPatient > 0"><span class="fa fa-comment-o"></span></a></li>
+					<li><a href="#" ng-if="vm.disableTestimonial == true" class="disabled"><span class="fa fa-star-o"></span></a></li>
+					<li><a href="#" ng-if="vm.disableTestimonial == false" ng-click="createTestimonial()"><span class="fa fa-star-o"></span></a></li>					
+				</ul>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th></th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="activity in vm.activities" ng-class="{'selected': activity.selected}" ng-click="selectActivity(activity)">
+							<td>{{activity[0]}}</td>
+							<td>
+								<div ng-if="activity[1] == 'Notes'">
+									<span class="fa fa-comment-o"></span>
+								</div>
+								<div ng-if="activity[1] == 'Email'">
+									<span class="fa fa-envelope-o"></span>
+								</div>
+								<div ng-if="activity[1] == 'CaseHistory'">
+									<span class="fa fa-file-text-o"></span>
+								</div>	
+								<div ng-if="activity[1] == 'Followup'">
+									<span class="fa fa-stethoscope"></span>
+								</div>
+								<div ng-if="activity[1] == 'image/jpeg' || activity[1] == 'image/gif' || activity[1] == 'image/png' || activity[1] == 'application/pdf' || activity[1] == 'application/octet-stream' || activity[1] == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+									<span class="fa fa-picture-o"></span>
+								</div>
+							</td>
+							<td>
+								<div ng-if="activity[1] == 'Notes'">
+									<p>{{activity[2]}}</p>
+								</div>
+								<div ng-if="activity[1] == 'Email'">
+									<a ng-href="{{activity[4]}}" target="_blank">{{activity[2]}}</a>
+								</div>
+								<div ng-if="activity[1] == 'CaseHistory'">
+									<a ng-href="{{activity[4]}}" target="_blank">{{activity[2]}}</a>
+								</div>
+								<div ng-if="activity[1] == 'Followup'">
+									<div class="row">
+										<div class="col-md-5">
+											<table class="table">
+												<tbody>
+													<tr ng-repeat="symptom in activity[2].symptoms">
+														<td>{{symptom.change}} : {{symptom.complaint}}</td>
+													</tr>
+												<tbody>
+											</table>
+										</div>
+										<div class="col-md-5">
+											<table class="table">
+												<tbody>
+													<tr ng-repeat="treatment in activity[2].treatments">
+														<td>{{treatment.medicine}}; {{treatment.potency}}; {{treatment.dose}}; {{treatment.frequency}}</td>
+													</tr>
+												<tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div ng-if="activity[1] == 'image/jpeg' || activity[1] == 'image/gif' || activity[1] == 'image/png' ||  activity[1] == 'application/pdf' || activity[1] == 'application/octet-stream' || activity[1] == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+									<a ng-href="{{activity[4]}}" target="_blank">{{activity[2]}}</a>		
+								</div>													
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>					
+	<!-- END Table for Activities -->
+	</div>
+</div>
+        
+<script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
+<script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>
+<script type="text/javascript" src="js/plugins.js"></script>
+
+<script type="text/javascript">
+	$("#patientForm").validate({
+		rules: {                                            
+			name: {
+				required: true,
+				minlength: 2
+			},
+			phone: {
+				required: true,
+				minlength: 8,
+				maxlength: 10
+			},
+			'gender': {
+				required: true
+			}
+		}
+	});
+</script>

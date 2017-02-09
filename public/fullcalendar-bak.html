@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>NuHomoeo - Homoeopathic Patient Management System</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->
+    </head>
+    <body>
+<div class="content-frame">            
+	<!-- START CONTENT FRAME BODY -->
+	<div class="content-frame-body padding-bottom-0">
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div id="alert_holder"></div>
+				<div class="calendar">                                
+					<div id="calendar"></div>                            
+				</div>
+			</div>
+		</div>	
+	</div>                    
+	<!-- END CONTENT FRAME BODY -->
+</div>				
+
+<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/plugins/moment.min.js"></script>
+<script type="text/javascript" src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+			
+<script>
+$(document).ready(function() {
+	$('#calendar').fullCalendar({
+		header: {
+			left: 'prev,next today myCustomButton',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		weekends: true, // will hide Saturdays and Sundays
+		dayClick: function() {
+			alert('a day has been clicked!');
+		},
+		businessHours: {
+			// days of week. an array of zero-based day of week integers (0=Sunday)
+			dow: [ 1, 2, 3, 4 ], // Monday - Thursday
+			start: '10:00', // a start time (10am in this example)
+			end: '18:00', // an end time (6pm in this example)
+		}    	
+	});
+});
+</script>
+
+		
+		<!-- END PMS JAVASCRIPTS -->
+	<!-- END SCRIPTS -->         
+    </body>
+</html>

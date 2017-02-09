@@ -1,0 +1,77 @@
+var controller = angular.module('patient-update-controller', [
+	'ui.bootstrap'
+]);
+
+controller.controller('patient-update-controller', function ($scope, $uibModalInstance, patient) {
+
+	console.log('patient: ' + patient);
+	if (patient != null) {
+		$scope.patient = patient;
+		$scope.salutation = patient.salutation;
+		$scope.name = patient.name;
+		$scope.phone = patient.phone;
+		$scope.reference = patient.reference;
+		$scope.email = patient.email;
+		$scope.gender = patient.gender;
+		
+		if (patient.birthdate != null)
+			$scope.dob = moment(patient.birthdate).toDate();
+		else
+			$scope.dob = '';
+		
+		$scope.primaryCom = patient.complaints.primaryCom;
+		$scope.secondaryCom = patient.complaints.secondaryCom;
+		$scope.address = patient.address;
+	}
+
+	// Validation check and Default Enter to be set
+    $scope.ok = function () {
+		if ($scope.name == undefined || $scope.name == '' ||
+			$scope.phone == undefined || $scope.phone == '')
+			return;
+
+		var complaints = {
+			'primaryCom': $scope.primaryCom,
+			'secondaryCom': $scope.secondaryCom
+		};
+		var dob = moment($scope.dob);
+		
+		var patient = {
+			salutation: $scope.salutation,
+			name: $scope.name,
+			phone: $scope.phone,
+			reference: $scope.reference,
+			email: $scope.email,	
+			gender: $scope.gender,
+			dob: dob,
+			complaints: complaints,
+			address: $scope.address
+		};
+		$uibModalInstance.close(patient);
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.clear = function () {
+        $scope.dob = null;
+    };
+
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1,
+		minDate: '1900-01-01', // 'yyyy-mm-dd'
+		maxDate: new Date(),
+		showWeeks: false
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+});

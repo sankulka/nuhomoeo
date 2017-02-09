@@ -1,0 +1,1 @@
+angular.module('patient', ['patient-dashboard-controller', 'patient-update-controller']);

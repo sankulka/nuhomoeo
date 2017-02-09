@@ -1,0 +1,63 @@
+var controller = angular.module('patient-followup-controller', [
+	'ui.bootstrap'
+]);
+
+controller.controller('patient-followup-controller', function ($uibModalInstance, followup) {
+	var $ctrl = this;
+	$ctrl.followup = followup;
+	
+	//https://www.codementor.io/angularjs/tutorial/create-dropdown-control	
+	$ctrl.changes = [
+		{name: 'Ameliorate', label: '<i class="fa fa-gear"></i><b> Ameliorate</b>'},
+		{name: 'Aggravate', label: '<i class="fa fa-gear"></i><b> Aggravate</b>'},
+		{name: 'Erratic', label: '<i class="fa fa-gear"></i><b> Erratic</b>'},
+		{name: 'Increase', label: '<i class="fa fa-gear"></i><b> Increase</b>'},
+		{name: 'Decrease', label: '<i class="fa fa-gear"></i><b> Decrease</b>'},
+		{name: 'No Change', label: '<i class="fa fa-gear"></i><b> No Change</b>'},
+		{name: 'Present', label: '<i class="fa fa-gear"></i><b> Present</b>'},
+		{name: 'Absent', label: '<i class="fa fa-gear"></i><b> Absent</b>'},
+		{name: 'Better', label: '<i class="fa fa-gear"></i><b> Better</b>'},
+		{name: 'Worse', label: '<i class="fa fa-gear"></i><b> Worse</b>'}
+	];
+
+	
+	$ctrl.symptoms = [];
+	$ctrl.addSymptom = function() {
+		if($ctrl.symptoms.complaint != '' &&
+		   $ctrl.symptoms.change != '') {
+
+		   $ctrl.symptoms.push({
+			   'complaint': $ctrl.symptoms.complaint,
+			   'change': $ctrl.symptoms.change
+		   });
+		}
+	};
+	
+	$ctrl.treatments = [];
+	$ctrl.addTreatment = function() {
+		if($ctrl.treatments.medicine != '' &&
+		   $ctrl.treatments.potency != '' &&
+		   $ctrl.treatments.dose != '' &&
+		   $ctrl.treatments.frequency != '') {
+
+		   $ctrl.treatments.push({
+			   'medicine': $ctrl.treatments.medicine,
+			   'potency': $ctrl.treatments.potency,
+			   'dose': $ctrl.treatments.dose,
+			   'frequency': $ctrl.treatments.frequency
+		   });
+		}		
+	};
+
+	$ctrl.ok = function () {
+		var followup = {
+			'symptoms': $ctrl.symptoms,
+			'treatments': $ctrl.treatments
+		};
+		$uibModalInstance.close(followup);
+	};
+
+	$ctrl.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+});

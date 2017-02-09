@@ -1,0 +1,275 @@
+var controller = angular.module('patient-dashboard-controller', [
+	'ngRoute',
+	'ui.bootstrap',
+	'patient',
+	'angularFileUpload',
+	'smart-table',
+	'patient-update-controller',
+	'patient-followup-controller',
+	'notes-controller'
+]);
+
+controller.controller('patient-dashboard-controller', ['$http', '$scope', '$window', '$cookies', '$state', '$log', '$q', '$stateParams', 'FileUploader', '$filter', '$uibModal',
+	function PatientDashboardController($http, $scope, $window, $cookies, $state, $log, $q,
+	$stateParams, FileUploader, $filter, $uibModal){
+		this.$http = $http;
+		this.scope = $scope;
+		this.window = $window;
+		this.$log = $log;
+		this.$q = $q;
+		this.$state = $state;
+		this.$stateParams = $stateParams;
+		this.$uibModal = $uibModal;
+		this.user = "Starting login";
+		$scope.vm = this;
+		this.items = ['item1', 'item2', 'item3'];
+		this.newItems = [];
+		this.animationsEnabled = true;
+		this.disableTestimonial = true;
+		var _this = this;
+
+	/*
+	0	A RegID
+	1	B Salutation
+	2 	C Name
+	3 	D Gender
+	4	E Reference
+	5 	F PhoneNumber
+	6 	G Email
+	7 	H DOB
+	8 	I PrimaryComplaint
+	9 	J SecondaryComplaint
+	10 	K Address
+	11	L Date
+	12  M FolderId
+	13 	N DetailsId
+	*/	
+
+	
+		//Launching current patient dashboard
+		_this.currentPatient = $stateParams.patientId;
+		if(_this.currentPatient) {
+			$scope.vm.currentPatient = _this.currentPatient;
+			this.$http.get('/patients/' + _this.currentPatient).success(function(patient) {
+				console.log('Successful single patient request');
+				$scope.vm.salutation = patient.salutation;
+				$scope.vm.name = patient.name;
+				$scope.vm.gender = patient.gender;
+				$scope.vm.reference = patient.reference;
+				$scope.vm.phone = patient.phone;
+				$scope.vm.email = patient.email;
+				$scope.vm.dob = patient.dob;
+				$scope.vm.primaryCom = patient.primaryCom;
+				$scope.vm.secondaryCom = patient.secondaryCom;				
+				$scope.vm.address = patient.address;
+			});
+			
+			this.$http.get('/files/' + _this.currentPatient).success(function(filesFolder) {
+				console.log('Successful reading of patient\'s folder: ' + filesFolder);
+				$scope.vm.filesFolder = "https://drive.google.com/embeddedfolderview?id=" + filesFolder + "#grid";
+			});
+
+			this.$http.get('/activities/' + _this.currentPatient).success(function(activities) {
+				console.log('Successful reading of patient activities');
+					
+				$scope.vm.activities = activities;
+				console.log(activities);
+			});
+		}
+		
+		// Testimonial selection
+		$scope.selectActivity = function (activity) {
+			if (activity[1] == 'Email' || 
+				activity[1] == 'Followup' ||
+				activity[1] == 'CaseHistory') {
+					console.log('Rejecting the selection');
+					$scope.clearAllSelections();
+					return;
+				}
+			activity.selected ? activity.selected = false : activity.selected = true;
+			$scope.enableDisableTestimonial();
+		}
+		
+		// Testimonial Enablement
+		$scope.enableDisableTestimonial = function () {
+			for(var ii = 0; ii < $scope.vm.activities.length; ii++) {
+				var activity = $scope.vm.activities[ii];
+				if (activity.selected == true) {
+					_this.disableTestimonial = false;
+					return;
+				}
+			}
+			_this.disableTestimonial = true;
+		}
+		
+		$scope.clearAllSelections = function () {
+			for(var ii = 0; ii < $scope.vm.activities.length; ii++)
+				$scope.vm.activities[ii].selected = false;
+			_this.disableTestimonial = true;			
+		}
+		
+		// Testimonial Creation
+		$scope.createTestimonial = function () {
+			var activities = [];
+			for(var ii = 0; ii < $scope.vm.activities.length; ii++) {
+				var activity = $scope.vm.activities[ii];
+				if (activity.selected == true) {
+					activities.push(activity);
+				}
+			}
+			
+			if (activities.length > 0) {
+				_this.$http.post('/testimonials/' + _this.currentPatient,
+					angular.toJson(activities)).success(function() {
+					console.log('Testimonial is successfully created');
+					_this.$state.reload();
+				});
+			}
+			console.log('Request is recieved. Please check the Testimonials after few minutes.');
+			$scope.clearAllSelections();
+		}
+		
+		// Patient updation
+		$scope.updatePatient = function (notification) {
+			console.log('Updating patient');
+
+			$scope.selectedNotification = notification;
+			var modalInstance = _this.$uibModal.open({
+				templateUrl: 'patientUpdate.html',
+				controller: 'patient-update-controller',
+				scope: $scope,
+				resolve: {
+					patient: function () {
+						return patient = {
+							salutation: $scope.vm.salutation,
+							name: $scope.vm.name,
+							phone: $scope.vm.phone,
+							reference: $scope.vm.reference,
+							email: $scope.vm.email,
+							gender: $scope.vm.gender,
+							dob: $scope.vm.dob,
+							primaryCom: $scope.vm.primaryCom,
+							secondaryCom: $scope.vm.secondaryCom,
+							address: $scope.vm.address							
+						};
+					}
+				}
+			});
+			
+			modalInstance.result.then(function (patient) {
+				patient['id'] = _this.currentPatient;
+				console.log(patient);
+
+				_this.$http.post('/patients/', angular.toJson(patient)).success(function(newId, stat) {
+					console.log('Patient is successfully updated: ' + newId);
+					_this.$state.reload();
+				});
+			}, function () {
+				console.log('Modal dismissed at: ' + new Date());
+				_this.$state.reload();
+			});
+		}
+		
+		$scope.addNotes = function (notification) {
+			console.log('Adding new notes');
+
+			$scope.selectedNotification = notification;
+			var modalInstance = _this.$uibModal.open({
+				templateUrl: 'notes.html',
+				controller: 'notes-controller',
+				scope: $scope,
+				resolve: {
+					notes: null
+				}
+			});
+
+			modalInstance.result.then(function (noteInput) {
+				console.log(noteInput);
+				
+				var test = {
+					note: noteInput
+				};
+
+				_this.$http.post('/notes/' + _this.currentPatient, angular.toJson(test))
+				.success(function() {
+					console.log('Notes is successfully added');
+					_this.$state.reload();
+				});
+			}, function () {
+				console.log('Modal dismissed at: ' + new Date());
+			});
+		}		
+				
+		$scope.startCaseHistory = function() {
+			var id = _this.$stateParams.patientId;
+			console.log('Getting case paper url');
+
+			_this.$http.get('/case/' + _this.currentPatient).success(function(url) {
+				_this.window.open(url, '_blank'); // in new tab
+				//$location.path(url); // in same tab
+				_this.$state.reload();
+			});
+			_this.$state.reload();
+		}
+		
+		$scope.addFollowup = function() {
+			var id = _this.$stateParams.patientId;
+			
+			var modalInstance = $uibModal.open({
+				animation: _this.animationsEnabled,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'followup.html',
+				controller: 'patient-followup-controller',
+				controllerAs: '$ctrl',
+				size: '', // blank, sm, lg
+				appendTo: undefined,
+				resolve: {
+					followup: function () {
+						return followup = {
+							symptom: $scope.vm.symptom,
+						};
+					}
+				}
+			});
+
+			modalInstance.result.then(function (followup) {
+				console.log(followup);
+				_this.$http.post('/followup/' + _this.currentPatient, angular.toJson(followup))
+				.success(function() {
+					console.log('Followup is successfully added');
+					_this.$state.reload();
+				});
+			}, function () {
+				console.log('Modal dismissed at: ' + new Date());
+				_this.$state.reload();
+			});
+			_this.$state.reload();
+		}
+		
+		//For uploading files
+		var uploader = $scope.uploader = new FileUploader({
+            url: '/files/' + _this.currentPatient,
+			autoUpload: true
+        });
+		
+        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', status);
+			var id = _this.$stateParams.patientId;
+			console.log('Upload is successful. Launching patient');
+			_this.$state.reload(); //go('patient', {'patientId': id});
+        };
+        uploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', status);
+        };
+        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', status);
+        };		
+	}
+])
+
+.filter('trustAsResourceUrl', ['$sce', function($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);
