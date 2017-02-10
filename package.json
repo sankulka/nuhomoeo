@@ -6,6 +6,7 @@
   "author": "Santosh Kulkarni",
   "dependencies": {
     "async": "^2.1.2",
+    "body-parser": "^1.16.0",
     "buffer": "^5.0.0",
     "express": "^4.13.4",
     "formidable": "^1.0.17",
@@ -21,16 +22,15 @@
     "grunt": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0"
   },
-  "engine":{
-	  "node": "*",
-	  "npm": "*"
+  "engine": {
+    "node": "*",
+    "npm": "*"
   },
-  "scripts":{
-	  "start": "node server.js"
+  "scripts": {
+    "start": "node server.js"
   },
-  "repository":{
-	  "type": "git",
-	  "url": "https://github.com/sankulka/nuhomoeo.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sankulka/nuhomoeo.git"
   }
-
 }
