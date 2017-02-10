@@ -20,5 +20,17 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0"
+  },
+  "engine":{
+	  "node": "*",
+	  "npm": "*"
+  },
+  "scripts":{
+	  "start": "node server.js"
+  },
+  "repository":{
+	  "type": "git",
+	  "url": "https://github.com/sankulka/nuhomoeo.git"
   }
+
 }
