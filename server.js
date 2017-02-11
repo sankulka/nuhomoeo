@@ -1,7 +1,8 @@
 // set up ======================================================================
 var express = require('express');
 var app = express(); 						// create our app w/ express
-var port = process.env.PORT || 8005; 				// set the port
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var ip = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -18,5 +19,5 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
 require('./app/routes.js')(app);
 
 // listen (start app with node server.js) ======================================
-app.listen(port);
-console.log("App listening on port " + port);
+app.listen(port, ip);
+console.log('Server running on http://%s:%s', ip, port);
