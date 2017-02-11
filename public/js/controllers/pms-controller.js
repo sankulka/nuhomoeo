@@ -69,7 +69,7 @@ angular.module('PMS')
 			
 			_this.$http.get('/logout').success(function(){
 				console.log('Logged out from server.');
-				_this.window.open("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:8005/", "_self");
+				_this.window.open("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://nuhomoeo-node-nuhomoeo.44fs.preview.openshiftapps.com", "_self");
 			});
 		}
 		
