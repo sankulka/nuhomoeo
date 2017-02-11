@@ -12,14 +12,13 @@ var exports = module.exports = 	{
 				'https://www.googleapis.com/auth/gmail.modify ' +
 				'https://www.googleapis.com/auth/gmail.readonly ' +
 				'https://www.googleapis.com/auth/gmail.labels ' +
-				'https://www.googleapis.com/auth/script.scriptapp ' +
 				'https://www.googleapis.com/auth/script.send_mail ' +
 				'https://www.googleapis.com/auth/documents '
 };
 
 var client_id = '1077116939953-cbrkk3fd5o7obr27f644r5qgtgngqssb.apps.googleusercontent.com';
-var client_secret = 'rWxPeAwMSLlhEtkBFwFWMKM6';
-var redirect_uris = 'http://localhost:8005/oauth2callback';
+var client_secret = 'S3Q4BNQWLydOLpw2IvdGBtrv';
+var redirect_uris = 'http://nuhomoeo-node-nuhomoeo.44fs.preview.openshiftapps.com/oauth2callback';
 
 exports.initial = 'SNKK';
 exports.casePaperId = '1FAIpQLSeWMndL-zOsxJE3wgq_ZQQVi4xufTsp0wplm0QYrJfsJApnlw';
