@@ -21,12 +21,12 @@ THIS IS PATIENT DASHBOARD CONTROLLER FORM
                 <h3 class="panel-title" ng-if="vm.id != null"><span class="fa fa-user"/> {{vm.salutation}} {{vm.name}}</h3>
                 <ul class="panel-controls">
 					<li class="xn-icon-button">
-						<a href="#" ng-click="updatePatient()" ng-show="vm.id != null">
+						<a href="#" ng-click="updatePatient()" ng-show="vm.id != null" data-toggle="tooltip" title="Update Patient" data-placement="bottom">
 							<span class="fa fa-pencil"></span>
 						</a>
 					</li>
 					<li class="xn-icon-button">
-						<a href="#" ng-click="createPatient()">
+						<a href="#" ng-click="createPatient()" data-toggle="tooltip" title="Add New Patient" data-placement="bottom">
 							<span class="fa fa-plus"></span>
 						</a>
 					</li>					
@@ -56,7 +56,7 @@ THIS IS PATIENT DASHBOARD CONTROLLER FORM
 				<h3 class="panel-title"><span class="fa fa-image"/> Gallery</h3>
                 <ul class="panel-controls" ng-if="vm.id != null">	
 					<li class="xn-icon-button">
-						<a href="#" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="" ngf-max-size="5MB">
+						<a href="#" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="" ngf-max-size="5MB" data-toggle="tooltip" title="Upload Image" data-placement="bottom">
 							<span class="fa fa-plus"></span>
 						</a>
 					</li>
@@ -95,16 +95,16 @@ THIS IS PATIENT DASHBOARD CONTROLLER FORM
 			<div class="panel-heading">
 				<h3 class="panel-title"><span class="fa fa-clock-o"/> Activities</h3>
                 <ul class="panel-controls" ng-if="vm.disableTestimonial == true">
-					<li><a href="#" ng-click="startCaseHistory()" ng-show="vm.id != null"><span class="fa fa-files-o"></span></a></li>
-					<li><a href="#" ng-click="addFollowup()" ng-show="vm.id != null"><span class="fa fa-stethoscope"></span></a></li>
-					<li><a href="#" ng-click="addNotes()" ng-show="vm.id != null"><span class="fa fa-comment-o"></span></a></li>
+					<li><a href="#" ng-click="startCaseHistory()" ng-show="vm.id != null" data-toggle="tooltip" title="Add Case History" data-placement="bottom"><span class="fa fa-files-o"></span></a></li>
+					<li><a href="#" ng-click="addFollowup()" ng-show="vm.id != null" data-toggle="tooltip" title="Add Followup" data-placement="bottom"><span class="fa fa-stethoscope"></span></a></li>
+					<li><a href="#" ng-click="addNotes()" ng-show="vm.id != null" data-toggle="tooltip" title="Add Note" data-placement="bottom"><span class="fa fa-comment-o"></span></a></li>
 					<li><a href="#" ng-if="(vm.id != null && vm.disableTestimonial == true)" class="disabled"><span class="fa fa-star-o"></span></a></li>
 				</ul>
                 <ul class="panel-controls" ng-if="vm.disableTestimonial == false">
 					<li><a href="#" ng-click="startCaseHistory()" ng-show="vm.id != null" class="disabled"><span class="fa fa-files-o"></span></a></li>
 					<li><a href="#" ng-click="addFollowup()" ng-show="vm.id != null" class="disabled"><span class="fa fa-stethoscope"></span></a></li>
 					<li><a href="#" ng-click="addNotes()" ng-show="vm.id != null" class="disabled"><span class="fa fa-comment-o"></span></a></li>
-					<li><a href="#" ng-if="(vm.id != null && vm.disableTestimonial == false)" ng-click="createTestimonial()"><span class="fa fa-star-o"></span></a></li>
+					<li><a href="#" ng-if="(vm.id != null && vm.disableTestimonial == false)" ng-click="createTestimonial()" data-toggle="tooltip" title="Create Testimonial" data-placement="bottom"><span class="fa fa-star-o"></span></a></li>
 				</ul>
 			</div>
 			<div class="panel-body">

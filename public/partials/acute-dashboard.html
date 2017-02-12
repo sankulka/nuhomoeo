@@ -14,10 +14,10 @@ This is the script for Patients dashboard
 						<a class="disabled" ng-if="vm.selectedPatient == null">
 							<span class="fa fa-pencil"></span>
 						</a>
-						<a href="#" ng-click="updateFollowup()" ng-if="vm.selectedPatient != null">
+						<a href="#" ng-click="updateFollowup()" ng-if="vm.selectedPatient != null" data-toggle="tooltip" title="Edit Acute Case" data-placement="bottom">
 							<span class="fa fa-pencil"></span>
 						</a>
-						<a href="#" ng-click="createFollowup()">
+						<a href="#" ng-click="createFollowup()" data-toggle="tooltip" title="Add Acute Case" data-placement="bottom">
 							<span class="fa fa-plus"></span>
 						</a>
 					</li>
