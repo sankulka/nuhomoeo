@@ -161,6 +161,7 @@ function getEvents (start, end, timezone, callback) {
 	var scope = angular.element(document.getElementById("calendar-controller")).scope();
 	var isLoggedIn = scope.vm.isLoggedIn;
 	var appointments = scope.vm.appointments;
+	console.log('Number of appointments: ' + appointments.length);
 
 	var events = [];
 	for (var ii = 0; ii < appointments.length; ii++) {
