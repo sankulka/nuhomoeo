@@ -158,36 +158,35 @@ function eventClickFunction (event, jsEvent, view) {
 
 
 function getEvents (start, end, timezone, callback) {
-	$.get('/appointments', function (appointments) {
-		var scope = angular.element(document.getElementById("calendar-controller")).scope();
-		var isLoggedIn = scope.vm.isLoggedIn;
-		
-		var events = [];
-		for (var ii = 0; ii < appointments.length; ii++) {
-			if (appointments[ii].summary == null ||
-				appointments[ii].start == null ||
-				appointments[ii].end == null) {
-				continue;
-			};
-			var eventEntry = {};
-			eventEntry.id = appointments[ii].id;
-			eventEntry.start = appointments[ii].start.dateTime;
-			eventEntry.end = appointments[ii].end.dateTime;
-			eventEntry.email = appointments[ii].email;
+	var scope = angular.element(document.getElementById("calendar-controller")).scope();
+	var isLoggedIn = scope.vm.isLoggedIn;
+	var appointments = scope.vm.appointments;
 
-			if (isLoggedIn) {
-				var summary = appointments[ii].summary.split('|');
-				eventEntry.title = summary[1];
-				eventEntry.phone = summary[2];
-			} else {
-				eventEntry.title = '';
-			}
-			
-			events.push(eventEntry);
+	var events = [];
+	for (var ii = 0; ii < appointments.length; ii++) {
+		if (appointments[ii].summary == null ||
+			appointments[ii].start == null ||
+			appointments[ii].end == null) {
+			continue;
+		};
+		var eventEntry = {};
+		eventEntry.id = appointments[ii].id;
+		eventEntry.start = appointments[ii].start.dateTime;
+		eventEntry.end = appointments[ii].end.dateTime;
+		eventEntry.email = appointments[ii].email;
+
+		if (isLoggedIn) {
+			var summary = appointments[ii].summary.split('|');
+			eventEntry.title = summary[1];
+			eventEntry.phone = summary[2];
+		} else {
+			eventEntry.title = '';
 		}
-		//alert(JSON.stringify(events));
-		callback(events);
-	});	
+
+		events.push(eventEntry);
+	}
+	//alert(JSON.stringify(events));
+	callback(events);	
 };
 
 function setPatient (patient) {
