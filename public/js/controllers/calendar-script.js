@@ -21,6 +21,7 @@ $(document).ready(function() {
 		disableDragging: true,
 		eventDurationEditable: false,
 		displayEventTime: false,
+/*
 		dayRender: function (date, cell) {
 			alert ('ffwefwef');
 	if (moment().diff(datefffff, 'mins') >= 0) {
@@ -32,6 +33,7 @@ $(document).ready(function() {
 			//element.find('.fc-event-title').append("<br/>" + event.location); 
 			element.find('.fc-time').hide();
 		},
+*/
 		events: function(start, end, timezone, callback) {
 			getEvents (start, end, timezone, callback);
         },
@@ -77,16 +79,18 @@ $(document).ready(function() {
 		disableDragging: true,
 		eventDurationEditable: false,
 		displayEventTime: false,
+/*
 		dayRender: function (date, cell) {
 	if (moment().diff(dateff, 'mins') >= 0) {
 		cell.css("background-color", "red");
 		$(cell).addClass('disabled');
 	}
-		},		
+		},
 		eventRender: function(event, element) { 
 			//element.find('.fc-event-title').append("<br/>" + event.location); 
 			element.find('.fc-time').hide();
 		},
+*/
 		events: function(start, end, timezone, callback) {
 			getEvents (start, end, timezone, callback);
         },
@@ -158,41 +162,42 @@ function eventClickFunction (event, jsEvent, view) {
 
 
 function getEvents (start, end, timezone, callback) {
-	var scope = angular.element(document.getElementById("calendar-controller")).scope();
-	var isLoggedIn = scope.vm.isLoggedIn;
-	var appointments = scope.vm.appointments;
-	if (appointments == null || appointments == undefined) {
-		console.log('Null or undefined appointments');
-		callback ([]);
-		return;
-	}
-	console.log('Number of appointments: ' + appointments.length);
-
-	var events = [];
-	for (var ii = 0; ii < appointments.length; ii++) {
-		if (appointments[ii].summary == null ||
-			appointments[ii].start == null ||
-			appointments[ii].end == null) {
-			continue;
-		};
-		var eventEntry = {};
-		eventEntry.id = appointments[ii].id;
-		eventEntry.start = appointments[ii].start.dateTime;
-		eventEntry.end = appointments[ii].end.dateTime;
-		eventEntry.email = appointments[ii].email;
-
-		if (isLoggedIn) {
-			var summary = appointments[ii].summary.split('|');
-			eventEntry.title = summary[1];
-			eventEntry.phone = summary[2];
-		} else {
-			eventEntry.title = '';
+	$.get('/appointments', function (appointments) {
+		var scope = angular.element(document.getElementById("calendar-controller")).scope();
+		var isLoggedIn = scope.vm.isLoggedIn;
+		if (appointments == null || appointments == undefined) {
+			console.log('Null or undefined appointments');
+			callback ([]);
+			return;
 		}
+		console.log('Number of appointments: ' + appointments.length);
 
-		events.push(eventEntry);
-	}
-	//alert(JSON.stringify(events));
-	callback(events);	
+		var events = [];
+		for (var ii = 0; ii < appointments.length; ii++) {
+			if (appointments[ii].summary == null ||
+				appointments[ii].start == null ||
+				appointments[ii].end == null) {
+				continue;
+			};
+			var eventEntry = {};
+			eventEntry.id = appointments[ii].id;
+			eventEntry.start = appointments[ii].start.dateTime;
+			eventEntry.end = appointments[ii].end.dateTime;
+			eventEntry.email = appointments[ii].email;
+
+			if (isLoggedIn) {
+				var summary = appointments[ii].summary.split('|');
+				eventEntry.title = summary[1];
+				eventEntry.phone = summary[2];
+			} else {
+				eventEntry.title = '';
+			}
+
+			events.push(eventEntry);
+		}
+		//alert(JSON.stringify(events));
+		callback(events);
+	});
 };
 
 function setPatient (patient) {
