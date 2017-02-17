@@ -81,17 +81,18 @@ module.exports = function (app) {
 					console.log('Error in creating appointment');
 				}
 				console.log('Appointment is successfully created and synched');
-				res.redirect({});
+				//res.redirect({});
 			});
 		}
 		
 		// From Patient: Mailer
-		//mailer.sendInvite(appointment, function(event) {
-			//console.log('Appointment is successfully created and synched');
-		//});
+		mailer.sendInvite(appointment, function(error) {
+			console.log(error);
+			console.log('Appointment is successfully created and synched');
+		});
 		
 		// From Patient: Implement sms.sendInvite (appointment);
-		//res.json({});
+		res.json({});
 	});
 	
 	app.delete('/appointment/:appointmentId', function (req, res) {
