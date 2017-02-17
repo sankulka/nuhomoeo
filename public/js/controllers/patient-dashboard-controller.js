@@ -6,8 +6,8 @@ var controller = angular.module('patient-dashboard-controller', [
 	'notes-controller'
 ]);
 
-controller.controller('patient-dashboard-controller', ['$http', '$scope', '$window', '$state', '$stateParams', 'Upload', '$filter', '$uibModal', 'PatientCreateService',
-	function PatientDashboardController($http, $scope, $window, $state, $stateParams, Upload, $filter, $uibModal, PatientCreateService){
+controller.controller('patient-dashboard-controller', ['$http', '$scope', '$window', '$state', '$stateParams', 'Upload', '$filter', '$uibModal', 'PatientCreateService', 'PMSUtilsService',
+	function PatientDashboardController($http, $scope, $window, $state, $stateParams, Upload, $filter, $uibModal, PatientCreateService, PMSUtilsService){
 		this.$http = $http;
 		this.scope = $scope;
 		this.window = $window;
@@ -144,6 +144,7 @@ controller.controller('patient-dashboard-controller', ['$http', '$scope', '$wind
 				scope: $scope,
 				appendTo: angular.element(document.querySelector('#patient-dashboard-controller')),
 				resolve: {
+					PMSUtilsService: PMSUtilsService,
 					patient: function () {
 						var complaints = {
 							'primaryCom': $scope.vm.primaryCom,

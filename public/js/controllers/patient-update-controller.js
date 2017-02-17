@@ -2,9 +2,12 @@ var controller = angular.module('patient-update-controller', [
 	'ui.bootstrap'
 ]);
 
-controller.controller('patient-update-controller', function ($scope, $uibModalInstance, patient) {
+controller.controller('patient-update-controller', function ($scope, $uibModalInstance, PMSUtilsService, patient) {
 
 	console.log('patient: ' + patient);
+	$scope.salutations = PMSUtilsService.getSalutations();
+	$scope.references = PMSUtilsService.getReferences();
+	
 	if (patient != null) {
 		$scope.patient = patient;
 		$scope.salutation = patient.salutation;
@@ -22,6 +25,9 @@ controller.controller('patient-update-controller', function ($scope, $uibModalIn
 		$scope.primaryCom = patient.complaints.primaryCom;
 		$scope.secondaryCom = patient.complaints.secondaryCom;
 		$scope.address = patient.address;
+	} else {
+		$scope.salutation = $scope.salutations[0];
+		$scope.reference = $scope.references[0];
 	}
 
 	// Validation check and Default Enter to be set

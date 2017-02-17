@@ -1,6 +1,6 @@
 var pms = angular.module('PMS');
 
-pms.service('PatientCreateService', ['$http', '$uibModal', function($http, $uibModal) {
+pms.service('PatientCreateService', ['$http', '$uibModal', 'PMSUtilsService', function($http, $uibModal, PMSUtilsService) {
 	this.$http = $http;
 	this.$uibModal = $uibModal;
 	var _this = this;
@@ -15,7 +15,8 @@ pms.service('PatientCreateService', ['$http', '$uibModal', function($http, $uibM
 			scope: scope,
 			appendTo: element,
 			resolve: {
-				patient: null
+				patient: null,
+				PMSUtilsService: PMSUtilsService,
 			}
 		});
 

@@ -46,7 +46,7 @@
 					</div>
 					<ul class="panel-controls">
 						<li class="xn-icon-button">
-							<a href="#" ng-click="addSymptom()" rel="tooltip" title="Add Symptom" data-placement="bottom">
+							<a href="#" ng-click="addSymptom()">
 								<span class="fa fa-plus"></span>
 							</a>
 						</li>
@@ -82,8 +82,7 @@
 					</div>
 					<div class="col-md-3">
 										<select ng-model="treatments.potency" class="form-control select">
-											<option>6X</option>
-											<option>30X</option>
+											<option ng-repeat="pot in potencies">{{pot}}</option>
 										</select>
 					</div>
 					<div class="col-md-2">
@@ -100,7 +99,7 @@
 					</div>						
 					<ul class="panel-controls">
 						<li class="xn-icon-button">
-							<a href="#" ng-click="addTreatment()" rel="tooltip" title="Add Treatment" data-placement="bottom">
+							<a href="#" ng-click="addTreatment()">
 								<span class="fa fa-plus"></span>
 							</a>
 						</li>

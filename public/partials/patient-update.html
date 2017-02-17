@@ -12,12 +12,9 @@
 		<form name="patientForm" role="form" class="form-horizontal" novalidate>
 			<div class="form-group">
 				<label class="col-md-3 control-label">Salutation:</label>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<select ng-model="salutation" class="form-control select"  ng-disabled="patient != null">
-						<option>Mr</option>
-						<option>Mrs</option>
-						<option>Miss</option>
-						<option>Master</option>
+						<option ng-repeat="sal in salutations">{{sal}}</option>
 					</select>
 				</div>
 			</div>	
@@ -57,11 +54,13 @@
 						<label class="check"><input type="radio" ng-model="gender" value="Female" class="iradio" name="gender" checked="checked"  ng-disabled="patient != null"/> Female</label>
 					</div>
 				</div>
-			</div>  
+			</div>
 			<div class="form-group">
 				<label class="col-md-3 control-label">Reference:</label>
-				<div class="col-md-6">
-					<input type="text" class="form-control" ng-model="reference" name="reference"  ng-disabled="patient != null"/>
+				<div class="col-md-3">
+					<select ng-model="reference" class="form-control tags" ng-disabled="patient != null">
+						<option ng-repeat="ref in references">{{ref}}</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
@@ -92,4 +91,13 @@
 		<button class="btn btn-default pull-right" ng-click="ok()" ng-disabled="patientForm.name.$invalid || patientForm.phone.$invalid">Save</button>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$(".tags").select2({
+		tags: true,
+		tokenSeparators: [',', '\n']
+	});
+});
+</script>
 </script>

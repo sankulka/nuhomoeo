@@ -27,7 +27,7 @@
 					</div>
 					<ul class="panel-controls">
 						<li class="xn-icon-button">
-							<a href="#" ng-click="addSymptom()" rel="tooltip" title="Add Symptom" data-placement="bottom">
+							<a href="#" ng-click="addSymptom()">
 								<span class="fa fa-plus"></span>
 							</a>
 						</li>
@@ -63,25 +63,32 @@
 					</div>
 					<div class="col-md-3">
 										<select ng-model="treatments.potency" class="form-control select">
-											<option>6X</option>
-											<option>30X</option>
+											<option ng-repeat="pot in potencies">{{pot}}</option>
 										</select>
 					</div>
 					<div class="col-md-2">
 										<select ng-model="treatments.dose" class="form-control select">
+											<option>1 pill</option>
+											<option>2 pills</option>
 											<option>3 pills</option>
 											<option>4 pills</option>
 										</select>
 					</div>
 					<div class="col-md-3">
 										<select ng-model="treatments.frequency" class="form-control select">
-											<option>Twice a day</option>
-											<option>Thrice a day</option>
+											<option>Once a day</option>
+											<option>Two times a day</option>
+											<option>Three times a day</option>
+											<option>Four times a day</option>
+											<option>Every hour</option>
+											<option>Every two hours</option>
+											<option>Every three hours</option>
+											<option>Every four hours</option>
 										</select>
 					</div>						
 					<ul class="panel-controls">
 						<li class="xn-icon-button">
-							<a href="#" ng-click="addTreatment()" rel="tooltip" title="Add Treatment" data-placement="bottom">
+							<a href="#" ng-click="addTreatment()">
 								<span class="fa fa-plus"></span>
 							</a>
 						</li>
@@ -141,6 +148,13 @@
 						</form>
 					</div>
 
+		
+		
+		
+		
+		
+		
+					
 				</div>		
 			</div>
 		</form>
