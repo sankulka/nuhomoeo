@@ -13,6 +13,16 @@ router
         function($stateProvider) {
 
             $stateProvider
+                .state('about', {
+                    url :'/about',
+                    views :  {
+                        '': {
+                            templateUrl: 'partials/about.html'
+                        },
+                    },
+                })
+
+			$stateProvider
                 .state('login', {
                     url :'/login',
                     views :  {
@@ -51,6 +61,11 @@ router
 							controller: 'calendar-controller'
                         },
                     },
+                })
+
+			.state('default', {
+                    url :'',
+					templateUrl: 'partials/home.html'
                 })
 		}
 	]);
