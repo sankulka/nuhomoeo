@@ -14,9 +14,17 @@
 @import "dropzone/dropzone.css";
 @import "animate/animate.min.css";
 
+/* Start Santosh */
 .tokenizationSelect2{
   width: 260px;
 }
+.blueimp-gallery-carousel {
+  box-shadow: none
+}
+.blueimp-gallery {
+ background: #f5f5f5 url('../img/bg.png') left top repeat;
+}
+/* End Santosh */
 
 /* PREDEFINED CLASSES */
 .clearfix {
@@ -50,7 +58,7 @@ body {
   background: #f5f5f5 url('../img/bg.png') left top repeat;
   position: relative;
   font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
+  font-size: 13px; /* Santosh */
   color: #22262e;
   overflow-x: hidden;
 }
@@ -7390,3 +7398,9 @@ li.ext_zip {
 .x-navigation-minimized .xn-logo{
 display:none;
 }
+
+/* Santosh */
+.x-navigation > li.xn-logo > a:first-child {
+    background: rgba(28, 175, 133, 0.95);
+}
+/* End Santosh */
