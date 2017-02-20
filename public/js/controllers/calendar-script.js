@@ -62,7 +62,7 @@ $(document).ready(function() {
 		header: {
 			left: '',
 			center: ' prev,   title,   next',
-			right: 'month,agendaWeek'
+			right: 'month,agendaWeek,today'
 		},
 		allDaySlot: false,
 		timezone: 'local',

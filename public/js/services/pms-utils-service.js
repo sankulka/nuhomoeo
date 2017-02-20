@@ -33,8 +33,8 @@ pms.service('PMSUtilsService', function() {
 		{name: 'Decrease', icon: 'fa fa-chevron-down'},
 		{name: 'High', icon: 'fa fa-arrow-up'},
 		{name: 'Low', icon: 'fa fa-arrow-down'},
-		{name: 'Ameliorate', icon: 'fa fa-chevron-left'},
-		{name: 'Aggravate', icon: 'fa fa-chevron-right'},
+		{name: 'Ameliorate', icon: 'fa fa-chevron-right'},
+		{name: 'Aggravate', icon: 'fa fa-chevron-left'},
 		{name: 'Erratic', icon: 'fa fa-bolt'},
 		{name: 'Present', icon: 'fa fa-circle'},
 		{name: 'Absent', icon: 'fa fa-ban'}
@@ -49,6 +49,32 @@ pms.service('PMSUtilsService', function() {
 			if (name == this.changes[ii].name)
 				return this.changes[ii].icon;
 		}
+	}
+	
+	this.frequencies = [
+		'Once a day',
+		'Two times a day',
+		'Three times a day',
+		'Four times a day',
+		'Every hour',
+		'Every two hours',
+		'Every three hours',
+		'Every four hours'
+	];
+	
+	this.getFrequencies = function () {
+		return this.frequencies;
+	}
+	
+	this.doses = [
+		'1 Pill',
+		'2 Pills',
+		'3 Pills',
+		'4 Pills'
+	];
+	
+	this.getDoses = function () {
+		return this.doses;
 	}
 
 	this.payMediums = [

@@ -9,6 +9,8 @@ controller.controller('acute-followup-controller', function AcuteFollowupControl
 	$scope.mediums = PMSUtilsService.getPayMediums();
 	$scope.medicines = PMSUtilsService.getMedicines();
 	$scope.potencies = PMSUtilsService.getPotencies();
+	$scope.frequencies = PMSUtilsService.getFrequencies();
+	$scope.doses = PMSUtilsService.getDoses();
 
 	if (patient != null) {
 		$scope.patient = patient;

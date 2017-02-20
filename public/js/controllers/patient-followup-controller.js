@@ -9,6 +9,8 @@ controller.controller('patient-followup-controller', ['$scope', '$uibModalInstan
 	$scope.mediums = PMSUtilsService.getPayMediums();
 	$scope.medicines = PMSUtilsService.getMedicines();
 	$scope.potencies = PMSUtilsService.getPotencies();
+	$scope.frequencies = PMSUtilsService.getFrequencies();
+	$scope.doses = PMSUtilsService.getDoses();
 	
 	$scope.symptoms = [];
 	$scope.symptoms.complaint = '';

@@ -68,22 +68,12 @@
 					</div>
 					<div class="col-md-2">
 										<select ng-model="treatments.dose" class="form-control select">
-											<option>1 pill</option>
-											<option>2 pills</option>
-											<option>3 pills</option>
-											<option>4 pills</option>
+											<option ng-repeat="dose in doses">{{dose}}</option>
 										</select>
 					</div>
 					<div class="col-md-3">
 										<select ng-model="treatments.frequency" class="form-control select">
-											<option>Once a day</option>
-											<option>Two times a day</option>
-											<option>Three times a day</option>
-											<option>Four times a day</option>
-											<option>Every hour</option>
-											<option>Every two hours</option>
-											<option>Every three hours</option>
-											<option>Every four hours</option>
+											<option ng-repeat="fre in frequencies">{{fre}}</option>
 										</select>
 					</div>						
 					<ul class="panel-controls">
