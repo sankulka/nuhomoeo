@@ -17,7 +17,7 @@ var exports = module.exports = 	{
 };
 
 var client_id = '1077116939953-cbrkk3fd5o7obr27f644r5qgtgngqssb.apps.googleusercontent.com';
-var client_secret = 'xrEdbfMWiyKGe3N0qXnaGwaM';
+var client_secret = 'j0U7o-rdwryuEVqAyyAjzQa5';
 var redirect_uris = 'http://nuhomoeo-node-nuhomoeo.44fs.preview.openshiftapps.com/oauth2callback';
 
 exports.initial = 'SNKK';
