@@ -44,7 +44,7 @@ controller.controller('patient-update-controller', function ($scope, $uibModalIn
 		
 		var patient = {
 			salutation: $scope.salutation,
-			name: $scope.name,
+			name: PMSUtilsService.capitalize($scope.name),
 			phone: $scope.phone,
 			reference: $scope.reference,
 			email: $scope.email,	

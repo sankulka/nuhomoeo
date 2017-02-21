@@ -10,7 +10,7 @@ controller.controller('pms-dashboard-controller', ['$http', '$scope', '$window',
 		this.apptQueries = PMSUtilsService.getApptQueries();
 		this.apptQuery = 'Today';
 		this.maxSize = 5; //Number of pager buttons to show		
-		this.itemsPerPage = 5;
+		this.itemsPerPage = 10;
 		
 		$window.sessionStorage.setItem('isLoggedIn', false);
 		this.$http.get('/patients').success(function(patients) {
@@ -55,6 +55,10 @@ controller.controller('pms-dashboard-controller', ['$http', '$scope', '$window',
 			$scope.vm.emails = emails;
 			console.log(emails);
 		});
+		
+		$scope.vm.emailDate = function (email) {
+			return new Date (email.date);
+		}
 		
 		this.currentEmailPage = 1;
 		this.setEmailPage = function (pageNo) {

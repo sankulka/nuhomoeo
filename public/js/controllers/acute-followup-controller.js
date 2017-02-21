@@ -96,7 +96,7 @@ controller.controller('acute-followup-controller', function AcuteFollowupControl
 			newPatient['followup'] = followup;
 		} else {
 			newPatient = {
-				'name': $scope.name,
+				'name': PMSUtilsService.capitalize($scope.name),
 				'phone': $scope.phone,
 				'followup': followup,
 				'billing': billing

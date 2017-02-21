@@ -148,7 +148,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="email in vm.emails.slice(((vm.currentEmailPage-1)*vm.itemsPerPage), ((vm.currentEmailPage)*vm.itemsPerPage))">
+						<tr ng-repeat="email in (vm.emails | orderBy : vm.emailDate : true).slice(((vm.currentEmailPage-1)*vm.itemsPerPage), ((vm.currentEmailPage)*vm.itemsPerPage))">
 							<td>{{email.dateTime}}</td>
 							<td><a href="#!/patient/{{email.id}}">{{email.name}}</td>
 							<td> <div class="truncate-ellipsis"><span>{{email.subject}} </span></div> </td>

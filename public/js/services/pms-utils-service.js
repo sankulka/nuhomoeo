@@ -1,6 +1,12 @@
 var pms = angular.module('PMS');
 
 pms.service('PMSUtilsService', function() {
+	
+	this.capitalize = function (str) {
+		return str.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase();
+		});
+	}
+	
 	this.salutations = [
 		'Mr',
 		'Mrs',
