@@ -38,7 +38,7 @@ controller.controller('acute-dashboard-controller', ['$http', '$scope', '$state'
 			console.log(patients);
 		});
 		
-		this.itemsPerPage = 5;
+		this.itemsPerPage = 10;
 		this.maxSize = 5; //Number of pager buttons to show
 
 		this.currentPatientPage = 1;

@@ -36,7 +36,7 @@ controller.controller('payments-dashboard-controller', ['$http', '$scope', '$win
 			console.log(payments);
 		});
 		
-		this.itemsPerPage = 5;
+		this.itemsPerPage = 10;
 		this.maxSize = 5; //Number of pager buttons to show
 
 		this.currentPatientPage = 1;

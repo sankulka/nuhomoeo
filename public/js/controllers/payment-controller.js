@@ -35,7 +35,7 @@ controller.controller('payment-controller', function ($scope, $uibModalInstance,
 			newRecord['billing'] = billing;
 		} else {
 			newRecord = {
-			'name': $scope.name,
+			'name': PMSUtilsService.capitalize($scope.name),
 			'phone': $scope.phone,
 			'billing': billing
 			};

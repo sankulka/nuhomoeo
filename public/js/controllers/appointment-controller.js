@@ -1,6 +1,6 @@
 var controller = angular.module('appointment-controller', []);
 
-controller.controller('appointment-controller',	function AppointmentController($http, $scope, $uibModalInstance, event, dateTime, isLoggedIn) {
+controller.controller('appointment-controller',	function AppointmentController($http, $scope, $uibModalInstance, event, dateTime, isLoggedIn, PMSUtilsService) {
 		this.$scope = $scope;
 		
 		$scope.durations = ['30', '60', '90', '120', '150', '180'];
@@ -62,7 +62,7 @@ controller.controller('appointment-controller',	function AppointmentController($
 				appointment.summary = summary;
 				appointment.email = patient.email;
 			} else {
-				var summary = "" + "|" + $scope.newPatient + "|" + $scope.phone;
+				var summary = "" + "|" + PMSUtilsService.capitalize($scope.newPatient) + "|" + $scope.phone;
 				appointment.summary = summary;
 				appointment.email = $scope.email;
 			}

@@ -2,8 +2,8 @@ var controller = angular.module('calendar-controller', [
 'appointment-controller'
 ]);
 
-controller.controller('calendar-controller', ['$rootScope', '$http', '$scope', '$window', '$state', '$uibModal',
-	function CalendarController($rootScope, $http, $scope, $window, $state, $uibModal) {
+controller.controller('calendar-controller', ['$rootScope', '$http', '$scope', '$window', '$state', '$uibModal', 'PMSUtilsService',
+	function CalendarController($rootScope, $http, $scope, $window, $state, $uibModal, PMSUtilsService) {
 		this.$http = $http;
 		this.$scope = $scope;
 		this.$state = $state;
@@ -58,7 +58,8 @@ controller.controller('calendar-controller', ['$rootScope', '$http', '$scope', '
 				resolve: {
 					event: null,
 					dateTime: dateTime,
-					isLoggedIn: _this.isLoggedIn
+					isLoggedIn: _this.isLoggedIn,
+					PMSUtilsService: PMSUtilsService
 				}
 			});
 
@@ -87,7 +88,8 @@ controller.controller('calendar-controller', ['$rootScope', '$http', '$scope', '
 				resolve: {
 					event: _this.event,
 					dateTime: null,
-					isLoggedIn: _this.isLoggedIn
+					isLoggedIn: _this.isLoggedIn,
+					PMSUtilsService: PMSUtilsService
 				}
 			});
 

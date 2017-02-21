@@ -36,7 +36,7 @@ controller.controller('prescriptions-dashboard-controller', ['$http', '$scope', 
 			console.log(prescriptions);
 		});
 		
-		this.itemsPerPage = 5;
+		this.itemsPerPage = 10;
 		this.maxSize = 5; //Number of pager buttons to show
 
 		this.currentPatientPage = 1;
