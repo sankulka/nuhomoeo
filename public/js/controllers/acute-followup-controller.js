@@ -36,7 +36,7 @@ controller.controller('acute-followup-controller', function AcuteFollowupControl
 			$scope.symptoms.change.name != '') {
 			var icon = PMSUtilsService.getIconByName($scope.symptoms.change.name);
 			$scope.symptoms.push({
-				'complaint': $scope.symptoms.complaint,
+				'complaint': PMSUtilsService.capitalize($scope.symptoms.complaint),
 				'change': $scope.symptoms.change.name,
 				'icon': icon
 			});
@@ -55,7 +55,7 @@ controller.controller('acute-followup-controller', function AcuteFollowupControl
 			$scope.treatments.dose != '' &&
 			$scope.treatments.frequency != '') {
 			$scope.treatments.push({
-				'medicine': $scope.treatments.medicine,
+				'medicine': PMSUtilsService.capitalize($scope.treatments.medicine),
 				'potency': $scope.treatments.potency,
 				'dose': $scope.treatments.dose,
 				'frequency': $scope.treatments.frequency

@@ -37,8 +37,8 @@ controller.controller('patient-update-controller', function ($scope, $uibModalIn
 			return;
 
 		var complaints = {
-			'primaryCom': $scope.primaryCom,
-			'secondaryCom': $scope.secondaryCom
+			'primaryCom': PMSUtilsService.capitalize($scope.primaryCom),
+			'secondaryCom': PMSUtilsService.capitalize($scope.secondaryCom)
 		};
 		var dob = moment($scope.dob);
 		
@@ -46,12 +46,12 @@ controller.controller('patient-update-controller', function ($scope, $uibModalIn
 			salutation: $scope.salutation,
 			name: PMSUtilsService.capitalize($scope.name),
 			phone: $scope.phone,
-			reference: $scope.reference,
+			reference: PMSUtilsService.capitalize($scope.reference),
 			email: $scope.email,	
 			gender: $scope.gender,
 			dob: dob,
 			complaints: complaints,
-			address: $scope.address
+			address: PMSUtilsService.capitalize($scope.address)
 		};
 		$uibModalInstance.close(patient);
     };
@@ -69,7 +69,7 @@ controller.controller('patient-update-controller', function ($scope, $uibModalIn
         $event.stopPropagation();
         $scope.opened = true;
     };
-
+	
     $scope.dateOptions = {
         formatYear: 'yy',
         startingDay: 1,

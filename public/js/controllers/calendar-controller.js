@@ -32,8 +32,10 @@ controller.controller('calendar-controller', ['$rootScope', '$http', '$scope', '
 			var selected = moment(dateTime);
 			var next3months = moment().add(3, 'months');
 			if (selected > next3months) {
-				alert('Select a date within 3 months');
-				
+				//alert('Select a date within 3 months');
+				console.log('Selected date is beyond 3 months');
+				return;
+				/*
 				var modalInstance = _this.$uibModal.open({
 					templateUrl: 'reselectAppointment.html',
 					//controller: 'appointment-controller',
@@ -47,6 +49,7 @@ controller.controller('calendar-controller', ['$rootScope', '$http', '$scope', '
 					console.log('Modal dismissed at: ' + new Date());
 				});
 				return;
+				*/
 			}
 			
 			$scope.vm.dateTime = dateTime;
