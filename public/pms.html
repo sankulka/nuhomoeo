@@ -17,15 +17,15 @@
 			
                 <ul class="x-navigation x-navigation-horizontal">
                     <li class="xn-logo">
-                        <a href="index.html">NuHomoeo</a>
+                        <a href="#!/dashboard" ng-click="pmsDashboard()">NuHomoeo</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
-                    <li>
+                    <!--li>
                         <a href="#!/dashboard" ng-click="pmsDashboard()">
 						<span class="fa fa-desktop"></span>
 						<span class="xn-text">Dashboard</span>
 						</a>                        
-                    </li>
+                    </li-->
 
                     <li class="xn-openable">
                         <a href="#"><span class="fa fa-user"></span> <span class="xn-text">Patients</span></a>
@@ -74,11 +74,11 @@
 						<span class="xn-text">Calendar</span>
 						</a>                        
                     </li>
-                    <!--li class="xn-search">
+                    <li class="xn-search">
                         <form role="form" ng-submit="search()">
                             <input type="text" ng-model="vm.query" name="search" placeholder="Search..."/>
                         </form>
-                    </li-->  					
+                    </li>  					
 					
                     <li class="pull-right">
 						<a href="#/" ng-click="logout()">
