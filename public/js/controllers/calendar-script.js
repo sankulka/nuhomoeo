@@ -164,7 +164,7 @@ function eventClickFunction (event, jsEvent, view) {
 function getEvents (start, end, timezone, callback) {
 	$.get('/appointments', function (appointments) {
 		var scope = angular.element(document.getElementById("calendar-controller")).scope();
-		if (scope == null || sccope == undefined || appointments == null || appointments == undefined) {
+		if (scope == null || scope == undefined || appointments == null || appointments == undefined) {
 			console.log('Null or undefined appointments');
 			callback ([]);
 			return;
