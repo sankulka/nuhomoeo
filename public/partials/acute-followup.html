@@ -9,9 +9,10 @@
 			<div class="panel panel-default tabs">
 				<ul class="nav nav-tabs" role="tablist">
 					<li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Patient</a></li>
-					<li><a href="#tab-second" role="tab" data-toggle="tab">Symptoms</a></li>
-					<li><a href="#tab-third" role="tab" data-toggle="tab">Treatment</a></li>
-					<li ng-show="patient == null"><a href="#tab-fourth" role="tab" data-toggle="tab">Payment</a></li>
+					<li><a href="#tab-second" role="tab" data-toggle="tab">Notes</a></li>
+					<li><a href="#tab-third" role="tab" data-toggle="tab">Symptoms</a></li>
+					<li><a href="#tab-four" role="tab" data-toggle="tab">Treatment</a></li>
+					<li ng-show="patient == null"><a href="#tab-five" role="tab" data-toggle="tab">Payment</a></li>
 				</ul>
 				<div class="panel-body tab-content">
 				
@@ -33,8 +34,18 @@
 							</div>
 						</form>
 					</div>
-		
+					
 		<div class="tab-pane" id="tab-second">
+			<div class="panel-body">
+				<form id="notesForm" role="form" class="form-horizontal">
+					<div class="col-md-12">
+						<textarea class="form-control" ng-model="notes" rows="5"></textarea>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="tab-pane" id="tab-third">
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-4">
@@ -72,7 +83,7 @@
 			</table>				
 		</div>
 					
-		<div class="tab-pane" id="tab-third">
+		<div class="tab-pane" id="tab-four">
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-3">
@@ -124,7 +135,7 @@
 			</table>
 		</div>
 
-					<div class="tab-pane" id="tab-fourth">
+					<div class="tab-pane" id="tab-five">
 						<form name="paymentForm" role="form" class="form-horizontal" novalidate>
 							<div class="form-group" ng-class="{'has-error' : paymentForm.billRaised.$invalid}">
 								<label class="col-md-3 control-label">Bill Raised:</label>

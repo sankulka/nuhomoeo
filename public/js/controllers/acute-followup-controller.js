@@ -16,12 +16,14 @@ controller.controller('acute-followup-controller', function AcuteFollowupControl
 		$scope.patient = patient;
 		$scope.name = patient.name;
 		$scope.phone = patient.phone;
+		$scope.notes = patient.notes;
 		$scope.symptoms = patient.followup.symptoms;
 		$scope.treatments = patient.followup.treatments;
 	} else {
 		$scope.patient = null;
 		$scope.name = '';
 		$scope.phone = '';
+		$scope.notes = '';
 		$scope.symptoms = [];
 		$scope.treatments = [];
 		$scope.billRaised = 0;
@@ -94,10 +96,12 @@ controller.controller('acute-followup-controller', function AcuteFollowupControl
 		if ($scope.patient != null) {
 			newPatient = $scope.patient;
 			newPatient['followup'] = followup;
+			newPatient['notes'] = $scope.notes;
 		} else {
 			newPatient = {
 				'name': PMSUtilsService.capitalize($scope.name),
 				'phone': $scope.phone,
+				'notes': $scope.notes,
 				'followup': followup,
 				'billing': billing
 			};

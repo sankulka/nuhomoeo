@@ -13,7 +13,8 @@ module.exports = function (app) {
 0	A	Date
 1	B	Phone
 2	C	Name
-3	D	Followup
+3	D	Notes
+4	E	Followup
 */
 	// Get Acute Followup for all patients
 	app.get('/acute', function(req, res) {
@@ -33,7 +34,8 @@ module.exports = function (app) {
 					'dateTime': moment(rows[ii][0]).format('lll'),
 					'phone': rows[ii][1],
 					'name': rows[ii][2],
-					'followup': JSON.parse(rows[ii][3])
+					'notes': rows[ii][3],
+					'followup': JSON.parse(rows[ii][4])
 				};
 				records.push(record);
 			}
@@ -68,9 +70,10 @@ module.exports = function (app) {
 						newRecord.push(record.date);
 						newRecord.push(record.phone);
 						newRecord.push(record.name);
+						newRecord.push(record.notes);
 						newRecord.push(JSON.stringify(record.followup));
 
-						var range = 'Acute!A' + (ii+1) + ':D' + (ii+1);
+						var range = 'Acute!A' + (ii+1) + ':E' + (ii+1);
 						sheet.updateRow(masterSheet, range, newRecord, function () {
 							console.log('Acute entry is updated successfully');
 							acute.cacheService.updateRecord(newRecord);
@@ -88,6 +91,7 @@ module.exports = function (app) {
 		rowEntry.push(now);
 		rowEntry.push(record.phone);
 		rowEntry.push(record.name);
+		rowEntry.push(record.notes);
 		rowEntry.push(JSON.stringify(record.followup));
 		
 		acute.cacheService.addRecord(rowEntry, function() {

@@ -7,7 +7,8 @@ var sheet = require('./sheet');
 0	A Date
 1	B Phone
 2 	C Name
-3 	D Followup
+3	D Notes
+4 	E Followup
 */
 
 var acute = function () {
