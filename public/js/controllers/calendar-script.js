@@ -164,13 +164,13 @@ function eventClickFunction (event, jsEvent, view) {
 function getEvents (start, end, timezone, callback) {
 	$.get('/appointments', function (appointments) {
 		var scope = angular.element(document.getElementById("calendar-controller")).scope();
-		var isLoggedIn = scope.vm.isLoggedIn;
-		if (appointments == null || appointments == undefined) {
+		if (scope == null || sccope == undefined || appointments == null || appointments == undefined) {
 			console.log('Null or undefined appointments');
 			callback ([]);
 			return;
 		}
 		console.log('Number of appointments: ' + appointments.length);
+		var isLoggedIn = scope.vm.isLoggedIn;
 
 		var events = [];
 		for (var ii = 0; ii < appointments.length; ii++) {
