@@ -10,6 +10,7 @@ controller.controller('calendar-controller', ['$rootScope', '$http', '$scope', '
 		this.$uibModal = $uibModal;
 		$scope.vm = this;
 		var _this = this;
+		$scope.vm.isLoggedIn = false;
 
 		$scope.vm.isLoggedIn = JSON.parse($window.sessionStorage.getItem('isLoggedIn'));
 		
