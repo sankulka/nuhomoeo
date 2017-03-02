@@ -106,19 +106,25 @@ var gmail = module.exports = {
 								header['subject'] = headers[jj].value;
 						}
 						
-						var patient = cache.cacheService.getPatientNameFolderDetailsByEmail
-										(header['sender'], header['subject']);
-						header['id'] = patient.id;
-						header['name'] = patient.name;
-						unreadList.push(header);
+						var subjectId = header['subject'].match(/[a-z]*-\d*/);
+						var patient = cache.cacheService.getPatientById(subjectId);
+						if (patient == null)
+							patient = cache.cacheService.getPatientNameFolderDetailsByEmail
+										(header['sender']);
 						
-						var labels = message.labelIds;
-						if (labels.indexOf(NuHomoeoID) >= 0)
-							console.log('Marking is done, skipping the email processing');
-						else
-							processHeader(header, patient, message.payload.parts);
-						
-						callback();
+						if (patient != null) {
+							header['id'] = patient.id;
+							header['name'] = patient.name;
+							unreadList.push(header);
+							
+							var labels = message.labelIds;
+							if (labels.indexOf(NuHomoeoID) >= 0)
+								console.log('Marking is done, skipping the email processing');
+							else
+								processHeader(header, patient, message.payload.parts);
+							
+							callback();
+						}
 					});
 				}, function (error) {
 					if (error) {

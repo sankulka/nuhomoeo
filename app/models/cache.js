@@ -111,10 +111,9 @@ var cache = function () {
 				}
 		},		
 
-		getPatientNameFolderDetailsByEmail : function(sender, subject) {
+		getPatientNameFolderDetailsByEmail : function(sender) {
 			for(var ii = 0; ii < patientsCache.length; ii++)
-				if(patientsCache[ii][6] == sender ||
-					subject.indexOf(patientsCache[ii][0]) >= 0) {
+				if(patientsCache[ii][6] == sender) {
 					var patient = {
 						'id': patientsCache[ii][0],
 						'name': patientsCache[ii][2],
@@ -124,6 +123,7 @@ var cache = function () {
 					};
 					return patient;
 				}
+			return null;
 		},
 		
 		getComplaintsById : function(id) {
@@ -131,6 +131,7 @@ var cache = function () {
 				if(patientsCache[ii][0] == id) {
 					return patientsCache[ii][8];
 				}
+			return null;
 		},
 		
 		getPatientFolderDetailsByEmail : function(sender, subject) {
@@ -153,6 +154,7 @@ var cache = function () {
 			for(var ii = 0; ii < patientsCache.length; ii++)
 				if(patientsCache[ii][0] == id)
 					return patientsCache[ii];
+			return null;
 		},
 		
 		getPatientByEmail : function(email) {
