@@ -106,7 +106,7 @@ var gmail = module.exports = {
 								header['subject'] = headers[jj].value;
 						}
 						
-						var subjectId = header['subject'].match(/[a-z]*-\d*/);
+						var subjectId = header['subject'].match(/[A-Z]*-\d*/);
 						var patient = cache.cacheService.getPatientById(subjectId);
 						if (patient == null)
 							patient = cache.cacheService.getPatientNameFolderDetailsByEmail
