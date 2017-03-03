@@ -111,19 +111,32 @@ var cache = function () {
 				}
 		},		
 
-		getPatientNameFolderDetailsByEmail : function(sender) {
+		getPatientNameFolderDetailsByEmail : function(sender, subjectId) {
+			var patient = null;
 			for(var ii = 0; ii < patientsCache.length; ii++)
-				if(patientsCache[ii][6] == sender) {
-					var patient = {
-						'id': patientsCache[ii][0],
-						'name': patientsCache[ii][2],
-						'folder': patientsCache[ii][11],
-						'details': patientsCache[ii][12],
-						'files': patientsCache[ii][13]
-					};
-					return patient;
+				if(patientsCache[ii][0] == subjectId) {
+					patient = patientsCache[ii];
+					break;
 				}
-			return null;
+			
+			if (patient == null) {
+				for(var ii = 0; ii < patientsCache.length; ii++)
+					if(patientsCache[ii][6] == sender) {
+						patient = patientsCache[ii];
+						break;
+					}
+			}
+			
+			if (patient != null) {
+				var pat = {
+					'id': patient[0],
+					'name': patient[2],
+					'folder': patient[11],
+					'details': patient[12],
+					'files': patient[13]
+				};
+				return pat;
+			}
 		},
 		
 		getComplaintsById : function(id) {
@@ -131,7 +144,6 @@ var cache = function () {
 				if(patientsCache[ii][0] == id) {
 					return patientsCache[ii][8];
 				}
-			return null;
 		},
 		
 		getPatientFolderDetailsByEmail : function(sender, subject) {
@@ -154,7 +166,6 @@ var cache = function () {
 			for(var ii = 0; ii < patientsCache.length; ii++)
 				if(patientsCache[ii][0] == id)
 					return patientsCache[ii];
-			return null;
 		},
 		
 		getPatientByEmail : function(email) {
