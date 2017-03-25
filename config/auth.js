@@ -17,8 +17,8 @@ var exports = module.exports = 	{
 };
 
 var client_id = '1077116939953-cbrkk3fd5o7obr27f644r5qgtgngqssb.apps.googleusercontent.com';
-var client_secret = 'OaVTvYj3ETSKzdas4bDX-gs_';
-var redirect_uris = 'http://nuhomoeo-node-nuhomoeo.44fs.preview.openshiftapps.com/oauth2callback';
+var client_secret = 'tNroiBQZiCZjD7n7XYhL-aoL';
+var redirect_uris = 'http://nuhomoeo-nuhomoeo-2.44fs.preview.openshiftapps.com/oauth2callback';
 
 exports.initial = 'SNKK';
 exports.casePaperId = '1FAIpQLSeWMndL-zOsxJE3wgq_ZQQVi4xufTsp0wplm0QYrJfsJApnlw';
